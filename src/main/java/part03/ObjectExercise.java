@@ -1,5 +1,6 @@
 package part03;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +24,12 @@ public class ObjectExercise {
      * @return A list of names of the people in the list.
      */
     public List<String> getNames(List<Person> people) {
-        // hint: you can call the getName() method of each Person on the list
-        return null;
+        List<String> names = new ArrayList<>(); // uusi lista
+
+        for (Person person : people) { // käydään läpi vanhaa listaa
+            names.add(person.getName()); // lisätään jokaisessa kohdassa uuteen listaan
+        }
+        return names; // palautetaan uusi lista
     }
 
     /**
@@ -40,7 +45,18 @@ public class ObjectExercise {
     public Person getOldest(List<Person> people) {
         // hint: you can call the getAge() method of each Person on the list and compare
         // the ages to find the oldest person
-        return null;
+        if (people.isEmpty()) {
+            return null;
+        }
+        Person oldest = people.get(0); // vanhin aloittaa ekasta
+
+        for (Person person : people) { // käy listaa läpi
+            if (oldest.getAge() < person.getAge()) { // jos vanhin on nuorempi kuin listan henkilö
+                oldest = person; // listan henkilö on nyt vanhin
+            }
+        }
+
+        return oldest;
     }
 
     /**
@@ -65,7 +81,26 @@ public class ObjectExercise {
      * @return A formatted string representing the names of people in the list.
      */
     public String generateNamesString(List<Person> people) {
-        // TODO: implement this method
-        return null;
+        int size = people.size();
+        String and = " and ";
+        String comma = ", ";
+        if (size == 0) {
+            return "";
+        }
+        String first = people.get(0).getName();
+        if (size == 1) {
+            return first;
+        }
+        String second = people.get(1).getName();
+        if (size == 2) {
+            return first + and + second;
+        }
+        String third = people.get(2).getName();
+        if (size == 3) {
+            return first + comma + second + and + third;
+        }
+        String xOthers = (size - 2) + " others";
+        return first + comma + second + and + xOthers;
+
     }
 }
